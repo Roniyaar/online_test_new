@@ -1,0 +1,79 @@
+.login_page
+  .container
+    .question_form
+      %h2 Question Form
+      = form_for @question do |f|
+        - if @question.errors.any?
+          #error_explanation
+            %h2
+              = pluralize(@question.errors.count, "error")
+              prohibited this question from being saved:
+            %ul
+              - @question.errors.full_messages.each do |msg|
+                %li= msg
+        %div
+          = f.label :category
+          = f.select :category_id, Category.all.collect{|a| [a.question_category, a.id]}
+        %div
+          = f.label :question_name
+          = f.text_area :name, :rows => 3
+        %div
+          = f.label :option_type
+          = f.select :option_type, Answer::OPTIONS.collect{|k, v| [v, k]}
+        #single_choice
+          %h4 Single Answers
+          %div
+            = label_tag :A
+            = text_field_tag :A
+          %div
+            = label_tag :B
+            = text_field_tag :B
+          %div
+            = label_tag :C
+            = text_field_tag :C
+          %div
+            = label_tag :D
+            = text_field_tag :D
+          .form_row
+            %label{for: "theme"} Correct Answer:
+            - ['A', 'B', 'C', 'D'].each do |theme|
+              = radio_button_tag 'theme', theme, @theme == theme
+              = theme.humanize
+          %br
+        #multiple_choice
+          %h4 Multiple Answers
+          %div
+            = label_tag :A
+            = text_field_tag :A
+          %div
+            = label_tag :B
+            = text_field_tag :B
+          %div
+            = label_tag :C
+            = text_field_tag :C
+          %div
+            = label_tag :D
+            = text_field_tag :D
+          .form_row
+            %label{for: "theme"} Correct Answers:
+            - [ 'A', 'B', 'C', 'D', 'All' ].each do |theme|
+              = check_box_tag 'theme', theme, @theme == theme
+              = theme.humanize
+          %br
+        #descriptive_choice
+          %h4 Decriptive Answer
+          %div
+            = label_tag :write_answer
+            = text_area_tag :write_answer
+          %br
+        %div{:style => "text-align:center;"}
+          = f.submit "Create Question", :class => "btn btn-primary"
+
+:javascript
+$(document).ready(function(){
+  $("#question_category_type").on('change', function(){
+    var option_value = $(this).val();
+    alert(option_value)
+    $.ajax({url: "/questions/choices", data: 'option='+option_value});
+  })
+})

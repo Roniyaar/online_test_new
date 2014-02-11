@@ -1,0 +1,11 @@
+%p
+  %b Category :
+  = #@category.question_category
+%p
+  %b Name :
+  = @question.name.html_safe
+%p
+  %b Question Type :
+  = "#{@question.option_type}".humanize
+= link_to "All Questions", questions_path, :class => "btn btn-primary"
+= link_to "Add Category", new_category_path

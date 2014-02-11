@@ -1,0 +1,26 @@
+= link_to "Online Test Module", root_path, :class => 'brand'
+%ul.nav.navbar-nav.pull-right
+  - if user_signed_in?
+    %li.user
+      %span.username{style: "color:#a6d8f7;font-size:18px;margin-top:25px;display:inline-block; font-family:Verdana, Geneva, sans-serif;"}
+        -if current_user.name.present?
+          = current_user.name
+        -else
+          guest user
+    %li.dropdown.user{style: "padding-top:15px;"}
+      %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", href: "#"}
+        = image_tag "settings.jpeg", width: "20", height: "20"
+      %ul.dropdown-menu
+        %li
+          = #link_to "My Profile", profile_path(current_user)
+        %li
+          = link_to 'Edit account', edit_user_registration_path
+        %li
+          = link_to destroy_user_session_path, :method => :delete do
+            %i.fa.fa-sign-out
+            Log Out
+  - else
+    %li
+      = link_to 'Login', new_user_session_path
+    %li
+      = link_to 'Sign up', new_user_registration_path
