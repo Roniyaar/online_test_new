@@ -10,6 +10,7 @@
       %th
     - @questions.each do |question|
       %tr
+        %td= question.answer.correct_answer
         %td= question.category_id
         %td= "#{question.name}".html_safe
         %td= "#{question.option_type}".humanize

@@ -14,10 +14,11 @@ class QuestionsController < ApplicationController
 		@question = Question.find(params[:id])
 	end
 	def create
-    debugger
     @category = Category.find(params[:question][:category_id])
     # @question = Question.new(params[:question])
     @question = @category.questions.build(params[:question])
+    answer_attributes = [params[:A], params[:B], params[:C], params[:D]]
+    @question.build_answer(:question_answer => answer_attributes, :correct_answer => [params[:theme]])
     respond_to do |format|
       debugger
       if @question.save
