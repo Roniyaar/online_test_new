@@ -52,6 +52,7 @@ class QuestionsController < ApplicationController
     end
   end
   def choices
+    @option = params[:option]
     respond_to do |format|
       format.js
     end

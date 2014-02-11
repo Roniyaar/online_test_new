@@ -1,0 +1,18 @@
+%h4 Multiple Answers
+%div
+  = label_tag :A
+  = text_field_tag :A
+%div
+  = label_tag :B
+  = text_field_tag :B
+%div
+  = label_tag :C
+  = text_field_tag :C
+%div
+  = label_tag :D
+  = text_field_tag :D
+.form_row
+  %label{for: "theme"} Correct Answers:
+  - [ 'A', 'B', 'C', 'D', 'All' ].each do |theme|
+    = check_box_tag 'theme', theme, @theme == theme
+    = theme.humanize

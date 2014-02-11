@@ -1,0 +1,16 @@
+-if @option == 'single_choice'
+  :plain
+    $("#single_choice").html("")
+    $("#single_choice").html("#{escape_javascript(render(:partial => "single_choice"))}");
+-elsif @option == 'multiple_choice'
+  :plain
+    $("#single_choice").html("")
+    $("#single_choice").html("#{escape_javascript( render :partial => "multiple_choice")}");
+-elsif @option == 'descriptive'
+  :plain
+    $("#single_choice").html("")
+    $("#single_choice").html("#{escape_javascript( render :partial => "descriptive_choice")}");
+-else
+  :plain
+    $("#single_choice").html("")
+    $("#single_choice").html("#{escape_javascript( render :partial => "please_select_choice")}");

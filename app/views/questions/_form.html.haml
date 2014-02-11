@@ -13,67 +13,27 @@
                 %li= msg
         %div
           = f.label :category
-          = f.select :category_id, Category.all.collect{|a| [a.question_category, a.id]}
+          = f.select :category_id, Category.all.collect{|a| [a.question_category, a.id]}, :prompt => "please select category"
         %div
           = f.label :question_name
           = f.text_area :name, :rows => 3
         %div
           = f.label :option_type
-          = f.select :option_type, Answer::OPTIONS.collect{|k, v| [v, k]}
+          = f.select :option_type, Answer::OPTIONS.collect{|k, v| [v, k]}, :prompt => "please select option"
         #single_choice
-          %h4 Single Answers
-          %div
-            = label_tag :A
-            = text_field_tag :A
-          %div
-            = label_tag :B
-            = text_field_tag :B
-          %div
-            = label_tag :C
-            = text_field_tag :C
-          %div
-            = label_tag :D
-            = text_field_tag :D
-          .form_row
-            %label{for: "theme"} Correct Answer:
-            - ['A', 'B', 'C', 'D'].each do |theme|
-              = radio_button_tag 'theme', theme, @theme == theme
-              = theme.humanize
-          %br
+          = #render :partial => "single_choice"
         #multiple_choice
-          %h4 Multiple Answers
-          %div
-            = label_tag :A
-            = text_field_tag :A
-          %div
-            = label_tag :B
-            = text_field_tag :B
-          %div
-            = label_tag :C
-            = text_field_tag :C
-          %div
-            = label_tag :D
-            = text_field_tag :D
-          .form_row
-            %label{for: "theme"} Correct Answers:
-            - [ 'A', 'B', 'C', 'D', 'All' ].each do |theme|
-              = check_box_tag 'theme', theme, @theme == theme
-              = theme.humanize
-          %br
+          = #render :partial => "multiple_choice"
         #descriptive_choice
-          %h4 Decriptive Answer
-          %div
-            = label_tag :write_answer
-            = text_area_tag :write_answer
+          =# render :partial => "descriptive_choice"
+        #please_select_choice
           %br
         %div{:style => "text-align:center;"}
           = f.submit "Create Question", :class => "btn btn-primary"
-
 :javascript
 $(document).ready(function(){
-  $("#question_category_type").on('change', function(){
+  $("#question_option_type").on('change', function(){
     var option_value = $(this).val();
-    alert(option_value)
     $.ajax({url: "/questions/choices", data: 'option='+option_value});
-  })
-})
+  });
+});
