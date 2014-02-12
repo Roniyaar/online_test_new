@@ -12,7 +12,7 @@
   = label_tag :D
   = text_field_tag :D
 .form_row
-  %label{for: "theme"} Correct Answer:
-  - ['A', 'B', 'C', 'D'].each do |theme|
-    = radio_button_tag 'theme', theme, @theme == theme
-    = theme.humanize
+  %label{for: "right_answer"} Correct Answer:
+  - ['A', 'B', 'C', 'D'].each do |right_answer|
+    = radio_button_tag 'right_answer', right_answer, @right_answer == right_answer
+    = right_answer.humanize

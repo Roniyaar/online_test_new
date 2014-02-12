@@ -12,7 +12,7 @@
   = label_tag :D
   = text_field_tag :D
 .form_row
-  %label{for: "theme"} Correct Answers:
-  - [ 'A', 'B', 'C', 'D', 'All' ].each do |theme|
-    = check_box_tag 'theme', theme, @theme == theme
-    = theme.humanize
+  %label{for: "correct_multiple_answers"} Correct Answers:
+  - [ 'A', 'B', 'C', 'D'].each do |correct_multiple_answers|
+    = check_box_tag 'correct_multiple_answers', correct_multiple_answers, @correct_multiple_answers == correct_multiple_answers
+    = correct_multiple_answers.humanize

@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
-  attr_accessible :correct_answer, :question_answer, :question_id
+  attr_accessible :correct_answer, :question_answer, :question_id, :A, :B, :C, :D, :right_answer, :right_choices, :write_answer
   serialize :question_answer, Array
   serialize :correct_answer, Array
   attr_accessible :correct_answer, :question_answer, :question_id

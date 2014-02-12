@@ -15,10 +15,18 @@ class QuestionsController < ApplicationController
 	end
 	def create
     @category = Category.find(params[:question][:category_id])
-    # @question = Question.new(params[:question])
     @question = @category.questions.build(params[:question])
-    answer_attributes = [params[:A], params[:B], params[:C], params[:D]]
-    @question.build_answer(:question_answer => answer_attributes, :correct_answer => [params[:theme]])
+    debugger
+    if @question.option_type == 0
+      answer_attributes = [params[:A], params[:B], params[:C], params[:D]]
+      @question.build_answer(:question_answer => answer_attributes, :correct_answer => [params[:right_answer]])
+    elsif @question.option_type == 1
+      answer_attributes = [params[:A], params[:B], params[:C], params[:D]]
+      @question.build_answer(:question_answer => answer_attributes, :correct_answer => [params[:correct_multiple_answers]])
+    else
+      answer_attributes = [params[:write_answer]]
+      @question.build_answer(:question_answer => answer_attributes)
+    end
     respond_to do |format|
       debugger
       if @question.save
