@@ -1,5 +1,5 @@
 class Question < ActiveRecord::Base
-  attr_accessible :name, :category_id, :option_type
+  attr_accessible :name, :category_id, :option_type, :answer_attributes
   belongs_to :category
   has_one :answer
   accepts_nested_attributes_for :answer

@@ -1,9 +1,14 @@
 class CreateAnswers < ActiveRecord::Migration
   def change
     create_table :answers do |t|
-      t.text :question_answer
-      t.text :correct_answer
       t.integer :question_id
+      t.string :A
+      t.string :B
+	    t.string :C
+	    t.string :D
+	    t.string :right_answer
+	    t.string :right_choices
+	    t.text :write_answer
 
       t.timestamps
     end
