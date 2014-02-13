@@ -4,4 +4,5 @@ class Question < ActiveRecord::Base
   has_one :answer
   accepts_nested_attributes_for :answer
   OPTIONS = {'single_choice' => 0, 'multiple_choice' => 1, 'descriptive' => 2}
+  validates :name, :category_id, :option_type, presence: true
 end

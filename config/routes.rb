@@ -13,8 +13,7 @@ OnlineTest::Application.routes.draw do
   end
   resources :answers
   resources :categories
-  match '/admin/search/authors' =>  'admin/articles#search_authors',  :via => 'post', :as => :admin_search_authors
-  match '/admin/question_type/choices' =>  'admin/questions#question_type_choices',  :via => 'post', :as => :admin_question_type_choices
+  match '/admin/questions/choices' =>  'admin/questions#questions_choices',  :via => 'post', :as => :admin_question_type_choices
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

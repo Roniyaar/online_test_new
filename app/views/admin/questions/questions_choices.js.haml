@@ -1,0 +1,17 @@
+-debugger
+-if @option == '0'
+  :plain
+    $("#singlechoice").html("")
+    $("#singlechoice").html("#{escape_javascript(render(:partial => "single_choice"))}");
+-elsif @option == '1'
+  :plain
+    $("#singlechoice").html("")
+    $("#singlechoice").html("#{escape_javascript( render :partial => "multiple_choice")}");
+-elsif @option == '2'
+  :plain
+    $("#singlechoice").html("")
+    $("#singlechoice").html("#{escape_javascript( render :partial => "descriptive_choice")}");
+-else
+  :plain
+    $("#singlechoice").html("")
+    $("#singlechoice").html("#{escape_javascript( render :partial => "please_select_choice")}");

@@ -1,6 +1,9 @@
 ActiveAdmin.register Question do
   index do
-    column :name
+    column :id
+    column "Name" do |g|
+      g.name.html_safe
+    end
     column :option_type do |question|
       Answer::OPTIONS.key(question.option_type)
     end
@@ -9,7 +12,7 @@ ActiveAdmin.register Question do
     end
   end
   show do
-    h3 question.name
+    h3 question.name.html_safe
   end
   # form do |f|
   #   f.inputs do
@@ -35,6 +38,14 @@ ActiveAdmin.register Question do
     def new
       @question = Question.new
       @question.build_answer
+    end
+    def questions_choices
+      debugger
+      @option = params[:option]
+      respond_to do |format|
+        puts "dgshgsdghsdg"
+        format.js
+      end
     end
   end
 end
