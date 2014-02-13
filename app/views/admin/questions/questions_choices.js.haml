@@ -2,7 +2,7 @@
 -if @option == '0'
   :plain
     $("#singlechoice").html("")
-    $("#singlechoice").html("#{escape_javascript(render(:partial => "single_choice"))}");
+    $("#singlechoice").html("#{escape_javascript(j render :partial => "single_choice")}");
 -elsif @option == '1'
   :plain
     $("#singlechoice").html("")

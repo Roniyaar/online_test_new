@@ -2,9 +2,9 @@ ActiveAdmin.register Answer do
 	actions :index
 	index do
 		column :id
-    column :question do |q|
-      Question.find_by_id(q.question_id).name.html_safe
-    end
+    # column :name do |q|
+    #   Question.find_by_id(q.question_id).name.html_safe
+    # end
     column :A
     column :B
     column :C

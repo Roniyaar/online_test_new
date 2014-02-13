@@ -40,11 +40,9 @@ ActiveAdmin.register Question do
       @question.build_answer
     end
     def questions_choices
-      debugger
       @option = params[:option]
       respond_to do |format|
-        puts "dgshgsdghsdg"
-        format.js
+        format.js { render js: @question, :object => @question }
       end
     end
   end

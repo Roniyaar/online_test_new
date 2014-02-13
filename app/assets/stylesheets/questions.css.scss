@@ -4,3 +4,7 @@
 a, a:link, a:visited  {
 	text-decoration: none;
 }
+
+#descriptive_choice,#text_field_option,#singlechoice, #multiplechoice {
+	display: none;
+}

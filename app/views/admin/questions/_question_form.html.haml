@@ -1,45 +1,18 @@
 = semantic_form_for [:admin, @question] do |f|
   = f.input :category_id, :as => :select, :collection => Category.all.collect{|a| [a.question_category, a.id]}, :include_blank => false, :prompt => "please select category"
   = f.input :name, as: :html_editor
-  = f.input :option_type, :as => :select, :collection => Answer::OPTIONS, :include_blank =>false, :prompt => "please select option", :remote => true, :input_html => { :id => "question_option_type" }
+  = f.input :option_type, :as => :select, :collection => Answer::OPTIONS, :include_blank =>false, :prompt => "please select option"
   = f.inputs :for => [:answer, f.object.answer || Answer.new] do |h|
-    #text_field_option
-      = #h.input :A
-      = #h.input :B
-      =# h.input :C
-      = #h.input :D
-    #singlechoice
-      =# h.input :right_answer, :as => :radio, :collection => ['A', 'B', 'C', 'D']
-    #multiplechoice
-      =# h.input :right_choices, :as => :check_boxes, :collection => ['A', 'B', 'C', 'D']
-    #descriptive_choice
-      = #h.input :write_answer
+    #choices_fields
+      #text_field_option
+        = h.input :A
+        = h.input :B
+        = h.input :C
+        = h.input :D
+      #singlechoice
+        = h.input :right_answer, :as => :radio, :collection => ['A', 'B', 'C', 'D']
+      #multiplechoice
+        = h.input :right_choices, :as => :check_boxes, :collection => ['A', 'B', 'C', 'D']
+      #descriptive_choice
+        = h.input :write_answer
   = f.actions
-
-/ :javascript
-/ $("#question_question_type").change(function(){
-/   if( $(this).val() == 'single_choice') {
-/     $("#text_field_option").show();
-/     $("#singlechoice").show();
-/     $("#multiplechoice").hide();
-/     $("#descriptive_choice").hide();
-/   }
-/   else if($(this).val() == 'multiple_choice') {
-/       $("#text_field_option").show();
-/       $("#multiplechoice").show();
-/       $("#singlechoice").hide();
-/       $("#descriptive").hide();
-/     }
-/   else if($(this).val() == 'descriptive') {
-/       $("#descriptive_choice").show();
-/       $("#text_field_option").hide();
-/       $("#multiplechoice").hide();
-/       $("#singlechoice").hide();
-/     }
-/   else {
-/     $("#text_field_option").hide();
-/     $("#singlechoice").hide();
-/     $("#multiplechoice").hide();
-/     $("#descriptive_choice").hide();
-/   }
-/ })
