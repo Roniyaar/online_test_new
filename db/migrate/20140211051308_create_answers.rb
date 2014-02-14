@@ -9,6 +9,7 @@ class CreateAnswers < ActiveRecord::Migration
 	    t.string :right_answer
 	    t.string :right_choices
 	    t.text :write_answer
+      t.integer :quiz_id
 
       t.timestamps
     end

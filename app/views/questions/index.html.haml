@@ -4,7 +4,39 @@
       - @questions.each do |question|
         %tr
           %td= "#{question.name}".html_safe
-          %td= #Answer::OPTIONS.key(question.option_type)
+          
+          - if Answer::OPTIONS.key(question.option_type) == 'single_choice'
+            = form_tag questions_path, :mehtod => 'post' do
+              %li
+                = radio_button_tag :A, "A"
+                = question.answer.A
+              %li
+                = radio_button_tag :B, "B"
+                = question.answer.B
+              %li
+                = radio_button_tag :C, "C"
+                = question.answer.C
+              %li
+                = radio_button_tag :D, "D"
+                = question.answer.D
+          - elsif Answer::OPTIONS.key(question.option_type) == 'multiple_choice'
+            = form_tag questions_path, :mehtod => 'post' do
+              %li
+                = check_box_tag :A
+                = question.answer.A
+              %li
+                = check_box_tag :B
+                = question.answer.B
+              %li
+                = check_box_tag :C
+                = question.answer.C
+              %li
+                = check_box_tag :D
+                = question.answer.D
+                
+          - else
+            = form_tag questions_path, :mehtod => 'post' do
+              = text_area_tag :write_your_answer_here
           %td=# Category.find_by_id(question.category_id).question_category
           %td=# link_to 'Show', question, :class => "btn btn-primary"
           %td=# link_to 'Edit', edit_question_path(question), :class => "btn btn-primary"

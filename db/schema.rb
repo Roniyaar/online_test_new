@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211062722) do
+ActiveRecord::Schema.define(:version => 20140214080933) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20140211062722) do
     t.string   "right_answer"
     t.string   "right_choices"
     t.text     "write_answer"
+    t.integer  "quiz_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -69,8 +70,25 @@ ActiveRecord::Schema.define(:version => 20140211062722) do
     t.string   "name"
     t.integer  "category_id"
     t.integer  "option_type"
+    t.integer  "quiz_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "quizzes", :force => true do |t|
+    t.string   "answer1"
+    t.string   "answer2"
+    t.string   "answer3"
+    t.string   "answer4"
+    t.text     "create_answer"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "results", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

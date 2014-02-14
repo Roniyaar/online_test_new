@@ -1,0 +1,57 @@
+.login_page
+  .container
+    .question_form
+      = form_for @quiz do |f|
+        %div
+          - @questions.each do |question|
+            %h3
+              Question :-
+            = question.name.html_safe
+            = #question.option_type
+            -if question.option_type == 0
+              %div
+                = f.label :answer1, 'Answer1:', :style => "font-weight:bold;"
+                = f.radio_button :answer1, 'answer1', :as => :radio
+                = question.answer.A
+              %br
+              %div
+                = f.label :answer2, 'Answer2:', :style => "font-weight:bold;"
+                = f.radio_button :answer2, 'answer2', :as => :radio
+                = question.answer.B
+              %br
+              %div
+                = f.label :answer3, 'Answer3:', :style => "font-weight:bold;"
+                = f.radio_button :answer3, 'answer3', :as => :radio
+                = question.answer.C
+              %br
+              %div
+                = f.label :answer4, 'Answer4:', :style => "font-weight:bold;"
+                = f.radio_button :answer4, 'answer4', :as => :radio
+                = question.answer.D
+            - elsif question.option_type == 1
+              %div
+                = question.answer.A
+                = f.label :Answer1, :style => "font-weight:bold;"
+                = f.check_box :answer1
+              %br
+              %div
+                = question.answer.B
+                = f.label :Answer2, :style => "font-weight:bold;"
+                = f.check_box :answer2
+              %br
+              %div
+                = question.answer.C
+                = f.label :Answer3, :style => "font-weight:bold;"
+                = f.check_box :answer3
+              %br
+              %div
+                = question.answer.D
+                = f.label :Answer4, :style => "font-weight:bold;"
+                = f.check_box :answer4
+            - else
+              %div
+                = f.label :create_answer
+                = f.text_area :create_answer
+        %br
+        %div
+          = f.submit "create"

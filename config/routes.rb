@@ -13,6 +13,7 @@ OnlineTest::Application.routes.draw do
   end
   resources :answers
   resources :categories
+  resources :quizzes
   match '/admin/questions/choices' =>  'admin/questions#questions_choices',  :via => 'post', :as => :admin_question_type_choices
   # The priority is based upon order of creation:
   # first created -> highest priority.
