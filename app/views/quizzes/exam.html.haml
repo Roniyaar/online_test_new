@@ -1,6 +1,6 @@
 %h1
   Question #{@current + 1} of #{@total}
-%p#question= @question.name
+%p#question= @question.name.html_safe
 #feedback-choices
   - @questions.each do |question|
     / - if answer.correct
@@ -9,7 +9,7 @@
     /   %p.incorrect.feedback-choice
     / - else
     /   %p.feedback-choice
-    = question.name
+    = question.name.html_safe
 / %p.feedback
 /   - if @correct
 /     Correct!

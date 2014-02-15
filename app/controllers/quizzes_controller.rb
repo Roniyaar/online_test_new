@@ -7,9 +7,7 @@ class QuizzesController < ApplicationController
 		@quiz = Quiz.new
 	end
 	def create
-		debugger
 		@quiz = Quiz.new(params[:quiz])
-		debugger
 		if @quiz.save
 			redirect_to quizzes_path
 		else
@@ -17,7 +15,6 @@ class QuizzesController < ApplicationController
 		end
 	end
 	def start
-		debugger
 		@questions = Question.all
 		total = @questions.count.to_i
 		all_question = Question.find(:all).map {|x| x.id}
@@ -33,21 +30,32 @@ class QuizzesController < ApplicationController
 	# 	@quiz = Quiz.new
 	# end
 	def question
-		debugger
-		@questions = Question.all
-		@current = session[:current]
-		@total = session[:total]
-		if @current >= @total
-			redirect_to finish_quizzes_path
-			return
+		if params[:commit] == "Continue"
+			@questions = Question.all
+			@current = session[:current] + 1
+			session[:current] = @current
+			@total = session[:total]
+			if @current >= @total
+				redirect_to finish_quizzes_path
+				return
+			end
+			@question = Question.find(session[:questions][@current])
+			@answer = @question.answer
+		else
+			@questions = Question.all
+			@current = session[:current]
+			@total = session[:total]
+			if @current >= @total
+				redirect_to finish_quizzes_path
+				return
+			end
+			@question = Question.find(session[:questions][@current])
+			@answer = @question.answer
+			session[:question] = @question
+			session[:answer] = @answer
 		end
-		@question = Question.find(session[:questions][@current])
-		@answer = @question.answer
-		session[:question] = @question
-		session[:answer] = @answer
 	end
 	def exam
-		debugger
 		@questions = Question.all
 		@current = session[:current] + 1
 		@question = Question.find(session[:questions][@current])

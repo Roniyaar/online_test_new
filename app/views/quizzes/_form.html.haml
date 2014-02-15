@@ -4,7 +4,6 @@
       = form_for @quiz do |f|
         %div
           - @questions.each_with_index do |question,index|
-            -debugger
             - if index == 0
               = index + 1
               %h3
@@ -55,9 +54,6 @@
                 %div
                   = f.label :create_answer
                   = f.text_area :create_answer, :class => "ckeditor"
-              = f.submit "next"
-
         %br
-        
         %div
           = f.submit "create"
