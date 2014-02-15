@@ -1,57 +1,71 @@
-.login_page
-  .container
-    .question_form
-      = form_for @quiz do |f|
-        %div
-          - @questions.each do |question|
-            %h3
-              Question :-
-            = question.name.html_safe
-            = #question.option_type
-            -if question.option_type == 0
-              %div
-                = f.label :answer1, 'Answer1:', :style => "font-weight:bold;"
-                = f.radio_button :answer1, 'answer1', :as => :radio
-                = question.answer.A
-              %br
-              %div
-                = f.label :answer2, 'Answer2:', :style => "font-weight:bold;"
-                = f.radio_button :answer2, 'answer2', :as => :radio
-                = question.answer.B
-              %br
-              %div
-                = f.label :answer3, 'Answer3:', :style => "font-weight:bold;"
-                = f.radio_button :answer3, 'answer3', :as => :radio
-                = question.answer.C
-              %br
-              %div
-                = f.label :answer4, 'Answer4:', :style => "font-weight:bold;"
-                = f.radio_button :answer4, 'answer4', :as => :radio
-                = question.answer.D
-            - elsif question.option_type == 1
-              %div
-                = f.label :Answer1, :style => "font-weight:bold;"
-                = f.check_box :answer1
-                = question.answer.A
-              %br
-              %div
-                = f.label :Answer2, :style => "font-weight:bold;"
-                = f.check_box :answer2
-                = question.answer.B
-              %br
-              %div
-                = f.label :Answer3, :style => "font-weight:bold;"
-                = f.check_box :answer3
-                = question.answer.C
-              %br
-              %div
-                = f.label :Answer4, :style => "font-weight:bold;"
-                = f.check_box :answer4
-                = question.answer.D
-            - else
-              %div
-                = f.label :create_answer
-                = f.text_area :create_answer
-        %br
-        %div
-          = f.submit "create"
+%h1
+  Question #{@current + 1} of #{@total}
+%p#question= @question.name
+= form_tag({:controller => "quizzes", :action => "exam"}) do
+  - @questions.each do |question|
+    %p.choice
+      = radio_button_tag(:question, question.id)
+      = label_tag("question_".concat(question.id.to_s).to_sym, question.name)
+  .center
+    = submit_tag("Continue", :class => "submit")
+- content_for(:title) do
+  Question #{@current + 1} of #{@total}
+
+
+/ .login_page
+/   .container
+/     .question_form
+/       = form_for @quiz do |f|
+/         %div
+/           - @questions.each do |question|
+/             %h3
+/               Question :-
+/             = question.name.html_safe
+/             = #question.option_type
+/             -if question.option_type == 0
+/               %div
+/                 = f.label :answer1, 'Answer1:', :style => "font-weight:bold;"
+/                 = f.radio_button :answer1, 'answer1', :as => :radio
+/                 = question.answer.A
+/               %br
+/               %div
+/                 = f.label :answer2, 'Answer2:', :style => "font-weight:bold;"
+/                 = f.radio_button :answer2, 'answer2', :as => :radio
+/                 = question.answer.B
+/               %br
+/               %div
+/                 = f.label :answer3, 'Answer3:', :style => "font-weight:bold;"
+/                 = f.radio_button :answer3, 'answer3', :as => :radio
+/                 = question.answer.C
+/               %br
+/               %div
+/                 = f.label :answer4, 'Answer4:', :style => "font-weight:bold;"
+/                 = f.radio_button :answer4, 'answer4', :as => :radio
+/                 = question.answer.D
+/             - elsif question.option_type == 1
+/               %div
+/                 = f.label :Answer1, :style => "font-weight:bold;"
+/                 = f.check_box :answer1
+/                 = question.answer.A
+/               %br
+/               %div
+/                 = f.label :Answer2, :style => "font-weight:bold;"
+/                 = f.check_box :answer2
+/                 = question.answer.B
+/               %br
+/               %div
+/                 = f.label :Answer3, :style => "font-weight:bold;"
+/                 = f.check_box :answer3
+/                 = question.answer.C
+/               %br
+/               %div
+/                 = f.label :Answer4, :style => "font-weight:bold;"
+/                 = f.check_box :answer4
+/                 = question.answer.D
+/             - else
+/               %div
+/                 = f.label :create_answer
+/                 = f.text_area :create_answer
+/         %br
+/         %div
+/           = f.submit "create"

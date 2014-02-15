@@ -15,4 +15,5 @@
 //= require twitter/bootstrap
 //= require questions.js
 //= require jquery_nested_form
+//= require ckeditor-jquery
 //= require_tree .

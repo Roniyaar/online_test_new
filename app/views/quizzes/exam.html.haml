@@ -1,0 +1,22 @@
+%h1
+  Question #{@current + 1} of #{@total}
+%p#question= @question.name
+#feedback-choices
+  - @questions.each do |question|
+    / - if answer.correct
+    /   %p.correct.feedback-choice
+    / - elsif answer == @answer
+    /   %p.incorrect.feedback-choice
+    / - else
+    /   %p.feedback-choice
+    = question.name
+/ %p.feedback
+/   - if @correct
+/     Correct!
+/   - else
+/     Incorrect.
+= form_tag({:controller => "quizzes", :action => "question"}) do
+  .center
+    = submit_tag("Continue", :class => "submit")
+- content_for(:title) do
+  Question #{@current + 1} of #{@total}

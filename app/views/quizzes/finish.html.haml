@@ -1,0 +1,8 @@
+%h1 Quiz Results
+%p#question
+  You answered correctly #{@correct} out of #{@total} questions.
+%p#score
+  = @score
+= link_to "Take another quiz", quizzes_path
+- content_for(:title) do
+  Quiz Results

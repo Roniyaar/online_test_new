@@ -59,6 +59,8 @@ GEM
       sass (>= 3.2.0)
       thor
     builder (3.0.4)
+    ckeditor_rails (4.3.1)
+      railties (>= 3.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -190,6 +192,7 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    will_paginate (3.0.5)
 
 PLATFORMS
   ruby
@@ -197,6 +200,7 @@ PLATFORMS
 DEPENDENCIES
   active_admin_editor
   activeadmin!
+  ckeditor_rails
   coffee-rails (~> 3.2.1)
   debugger
   devise
@@ -211,3 +215,4 @@ DEPENDENCIES
   therubyracer
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
+  will_paginate (~> 3.0)
