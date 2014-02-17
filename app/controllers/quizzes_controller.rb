@@ -31,6 +31,7 @@ class QuizzesController < ApplicationController
 	# end
 	def question
 		if params[:commit] == "Continue"
+			@quiz = Quiz.new
 			@questions = Question.all
 			@current = session[:current] + 1
 			session[:current] = @current
@@ -42,6 +43,7 @@ class QuizzesController < ApplicationController
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
 		elsif params[:commit] == "Back"
+			@quiz = Quiz.new
 			@questions = Question.all
 			@current = session[:current] - 1
 			session[:current] = @current
@@ -52,6 +54,7 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 		else
+			@quiz = Quiz.new
 			@questions = Question.all
 			@current = session[:current]
 			@total = session[:total]

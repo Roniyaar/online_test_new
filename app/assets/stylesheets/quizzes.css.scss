@@ -1,0 +1,27 @@
+// Place all the styles related to the quizes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.disable {
+	border-radius: 5px;
+	background-color: #ccc;
+	background-color: rgba(238, 238, 238, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#99EEEEEE',EndColorStr='#99EEEEEE');
+	text-decoration:none;
+}
+.quiz_name {
+	font-weight: normal;
+	font-size: 20px;
+	color: #ccc;
+}
+.time-left {
+	font-weight: bold;
+	font-size: 20px;
+	padding: 10px;
+	span:first-child {
+		color: #ccc;
+	}
+	#timer {
+		font-size: 20px;
+		font-weight: bold;
+	}
+}
