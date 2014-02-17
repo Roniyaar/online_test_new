@@ -9,7 +9,7 @@
         -if @question.option_type == 0
           %div
             = label_tag :A, 'A:'
-            = radio_button :answer1, 'answer1', :as => :radio
+            = radio_button_tag :answer1, 'answer1', :as => :radio
             = @question.answer.A
           %br
           %div
@@ -51,6 +51,7 @@
             = label_tag :wright_answer
             = text_area_tag :create_answer
         %br
+        = submit_tag("Back", :class => "submit", :id => "back_button")
         = submit_tag("Continue", :class => "submit")
         - content_for(:title) do
           Question #{@current + 1} of #{@total}

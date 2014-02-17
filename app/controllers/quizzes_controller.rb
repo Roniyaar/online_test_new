@@ -41,6 +41,16 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
+		elsif params[:commit] == "Back"
+			@questions = Question.all
+			@current = session[:current] - 1
+			session[:current] = @current
+			@total = session[:total]
+			if @current >= @total
+				redirect_to finish_quizzes_path
+				return
+			end
+			@question = Question.find(session[:questions][@current])
 		else
 			@questions = Question.all
 			@current = session[:current]
