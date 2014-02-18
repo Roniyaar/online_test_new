@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(:version => 20140218065950) do
     t.string   "right_answer"
     t.string   "right_choices"
     t.text     "write_answer"
-    t.integer  "quiz_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.boolean  "correct"
@@ -71,7 +70,6 @@ ActiveRecord::Schema.define(:version => 20140218065950) do
     t.string   "name"
     t.integer  "category_id"
     t.integer  "option_type"
-    t.integer  "quiz_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -79,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20140218065950) do
   create_table "quizzes", :force => true do |t|
     t.string   "answer1"
     t.string   "answer2"
+    t.string   "answer3"
+    t.string   "answer4"
     t.text     "create_answer"
     t.integer  "user_id"
     t.datetime "created_at",    :null => false
