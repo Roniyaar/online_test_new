@@ -30,6 +30,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'active_admin_editor'
 gem 'ckeditor_rails'
 #gem 'will_paginate', '~> 3.0'
+#gem 'phony_rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

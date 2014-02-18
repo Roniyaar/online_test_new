@@ -1,5 +1,5 @@
 .login_page
-  .container
+  .container.quiz{ :'data-attending' => 'false' }
     .question_form
       %h1
         Question #{@current + 1} of #{@total}
@@ -58,38 +58,43 @@
         = submit_tag("Continue", :class => "submit")
         - content_for(:title) do
           Question #{@current + 1} of #{@total}
-:javascript
-  $(document).on('page:change', function() {
-    var set_timer = function() {
-      var quiz_duration = parseInt("#{@quiz.duration}");
-      var target_date = new Date();
-      target_date.setMinutes(target_date.getMinutes() + quiz_duration);
-      var minutes, seconds;
-      var countdown = document.getElementById("timer");
-      var time_out = quiz_duration * 60 * 1000;
+/ :javascript
+/   $(document).ready(function() {
+/     var set_timer = function() {
+/       var quiz_duration = parseInt("#{@quiz.duration}");
+/       var target_date = new Date();
+/       target_date.setMinutes(target_date.getMinutes() + quiz_duration);
+/       var minutes, seconds;
+/       var countdown = document.getElementById("timer");
+/       var time_out = quiz_duration * 60 * 1000;
 
-      setInterval(function() {
-        var current_date = new Date().getTime();
-        var seconds_left = (target_date - current_date) / 1000;
-        minutes = parseInt(seconds_left / 60);
-        seconds = parseInt(seconds_left % 60);
-        countdown.innerHTML = formatTime(minutes, seconds);
-      }, 100);
+/       setInterval(function() {
+/         var current_date = new Date().getTime();
+/         var seconds_left = (target_date - current_date) / 1000;
+/         minutes = parseInt(seconds_left / 60);
+/         seconds = parseInt(seconds_left % 60);
+/         countdown.innerHTML = formatTime(minutes, seconds);
+/       }, 100);
 
-    }();
+/       setTimeout(function() {
+/         var attended = $(".quiz").data('attending');
+/         window.location.href = '#{question_quizzes_path}'+'?attended='+attended;
+/       }, time_out);
 
-    // Time format helpers
-    var formatTime = function(minutes, seconds) {
-      var min = parseInt(minutes),
-          sec = parseInt(seconds);
-      return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2);
-    }
-    var pad = function(number, length) {
-      var str = '' + number;
-      while (str.length < length) {str = '0' + str;}
-      return str;
-    }
-  });
+/     }();
+
+/     // Time format helpers
+/     var formatTime = function(minutes, seconds) {
+/       var min = parseInt(minutes),
+/           sec = parseInt(seconds);
+/       return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2);
+/     }
+/     var pad = function(number, length) {
+/       var str = '' + number;
+/       while (str.length < length) {str = '0' + str;}
+/       return str;
+/     }
+/   });
 
 
 / .login_page

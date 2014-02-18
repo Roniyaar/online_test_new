@@ -30,7 +30,7 @@ class QuizzesController < ApplicationController
 	# 	@quiz = Quiz.new
 	# end
 	def question
-		if params[:commit] == "Continue"
+		if params[:commit] == "Continue" || params[:commit] == "Back"
 			@quiz = Quiz.new
 			@questions = Question.all
 			@current = session[:current] + 1
@@ -42,17 +42,6 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
-		elsif params[:commit] == "Back"
-			@quiz = Quiz.new
-			@questions = Question.all
-			@current = session[:current] - 1
-			session[:current] = @current
-			@total = session[:total]
-			if @current >= @total
-				redirect_to finish_quizzes_path
-				return
-			end
-			@question = Question.find(session[:questions][@current])
 		else
 			@quiz = Quiz.new
 			@questions = Question.all

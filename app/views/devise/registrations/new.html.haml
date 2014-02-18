@@ -16,6 +16,12 @@
         %div
           = f.label :password_confirmation
           = f.password_field :password_confirmation
+        %div
+          = f.label :Address
+          = f.text_area :address, :rows => 3
+        %div
+          = f.label :mobile_no
+          = f.telephone_field :mobile_no
         %div{:style => "text-align:center;"}
           = f.submit "Sign up", :class => "btn btn-primary"
       = render "devise/shared/links"
