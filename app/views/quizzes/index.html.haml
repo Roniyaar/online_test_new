@@ -2,9 +2,7 @@
 = form_tag({:controller => "quizzes",:action => "start"}) do
   %div
     = label_tag :category
-    -debugger
-    = select_tag :category_id, Category.all.map{|a| a.question_category}.join(','), :prompt => "please select category"
-  %p= label_tag(:number, "How many questions do you want in the quiz?", :id => "question")
+    = select_tag :category_id, Category.all.collect{|p| p.question_category}.join(','), :prompt => "please select category"
   %p.center
     =# select_tag(:number, options_for_select((1..10).map {|x| [x, x]}), :id => "count")
   .center
