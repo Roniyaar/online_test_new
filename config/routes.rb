@@ -4,7 +4,7 @@ OnlineTest::Application.routes.draw do
 
   devise_for :users
 
-  root :to => 'homes#index'
+  root :to => 'quizzes#index'
   resources :homes, :only => [:index]
   resources :questions do
     collection do
