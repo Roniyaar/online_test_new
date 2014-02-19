@@ -12,54 +12,60 @@
         -if @question.option_type == 0
           %div
             = label_tag :A
-            = radio_button_tag :answer, 'answer'
+            = radio_button_tag :answer, @question.answer.A
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = radio_button_tag :answer, 'answer'
+            = radio_button_tag :answer, @question.answer.B
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = radio_button_tag :answer, 'answer'
+            = radio_button_tag :answer, @question.answer.C
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = radio_button_tag :answer, 'answer'
+            = radio_button_tag :answer, @question.answer.D
             = @question.answer.D
         - elsif @question.option_type == 1
           %div
-            = label_tag(:A, "A")
-            = check_box_tag :answer
+            = label_tag :A
+            = check_box_tag :answer_a, @question.answer.A
             = @question.answer.A
           %br
           %div
-            = label_tag(:B, "B")
-            = check_box_tag :answer
+            = label_tag :B
+            = check_box_tag :answer_b, @question.answer.B
             = @question.answer.B
           %br
           %div
-            = label_tag(:C, "C")
-            = check_box_tag :answer
+            = label_tag :C
+            = check_box_tag :answer_c, @question.answer.C
             = @question.answer.C
           %br
           %div
-            = label_tag(:D, "D")
-            = check_box_tag :answer
+            = label_tag :D
+            = check_box_tag :answer_d, @question.answer.D
             = @question.answer.D
         - else
           %div
-            = label_tag :wright_answer
+            = label_tag :write_answer
             = text_area_tag :create_answer
         %br
         - if @current != 0
           = submit_tag("Back", :class => "submit", :id => "back_button")
         = submit_tag("Continue", :class => "submit")
         = hidden_field_tag :category_id, "#{@category.id}"
+        = hidden_field_tag :question_id, "#{@question.id}"
         - content_for(:title) do
           Question #{@current + 1} of #{@total}
+      -if @current == @total
+        = form_for @quiz do |f|
+          = f.category_id :value => @category.id
+          = f.user_id :value => current_user.id
+          = f.submit
 / :javascript
 /   $(document).ready(function() {
 /     var set_timer = function() {

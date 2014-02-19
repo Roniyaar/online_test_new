@@ -16,6 +16,7 @@ class QuizzesController < ApplicationController
 		end
 	end
 	def start
+		@quiz = Quiz.new
 		@category = Category.find(params[:category_id])
 		@question = @category.questions
 		total = @question.count.to_i
@@ -33,21 +34,30 @@ class QuizzesController < ApplicationController
 	# end
 	def question
 		if params[:commit] == "Continue"
-			debugger
-			@quiz = Quiz.new
+			# @quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] + 1
 			session[:current] = @current
 			@total = session[:total]
-			if @current >= @total
-				redirect_to finish_quizzes_path
-				return
+			hash = {}
+			@q = Question.find(params[:question_id])
+			if @q.option_type == 0
+			  hash[:r_id] = {params[:question_id]=>{"answer"=>params[:answer]}}
+			elsif @q.option_type == 1
+			  hash[:r_id] = {params[:question_id]=>{"a"=>params[:a],"b"=>params[:b],"c"=>params[:c],"d"=>params[:d]}}
+			else
+				hash[:r_id] = { params[:question_id] => {"correct_answer" => [params[:correct_answer]]}}
 			end
-			@question = Question.find(session[:questions][@current])
-			@answer = @question.answer
+
+			debugger if @current > 3
+			if @current >= @total
+				redirect_to finish_quizzes_path(:category_id => @category.id)
+			else
+			  @question = Question.find(session[:questions][@current])
+			  @answer = @question.answer
+			end
 		elsif params[:commit] == "Back"
-			debugger
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
@@ -56,12 +66,10 @@ class QuizzesController < ApplicationController
 			@total = session[:total]
 			if @current >= @total
 				redirect_to finish_quizzes_path
-				return
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
 		else
-			debugger
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
@@ -69,7 +77,6 @@ class QuizzesController < ApplicationController
 			@total = session[:total]
 			if @current >= @total
 				redirect_to finish_quizzes_path
-				return
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
@@ -97,6 +104,14 @@ class QuizzesController < ApplicationController
 	def finish
 		@correct = session[:correct]
 		@total = session[:total]
+		@quiz = Quiz.new
+		@quiz.answers = session[:hash]
+		@quiz.category_id = params[:category_id]
+		@quiz.user_id = current_user.id
+		if @quiz.save
+			redirect_to root_path
+		end
+
 		# @score = @correct * 100/@total
 	end
 end
