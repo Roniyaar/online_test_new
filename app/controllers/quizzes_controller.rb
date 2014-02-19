@@ -33,6 +33,7 @@ class QuizzesController < ApplicationController
 	# end
 	def question
 		if params[:commit] == "Continue"
+			debugger
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
@@ -46,6 +47,7 @@ class QuizzesController < ApplicationController
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
 		elsif params[:commit] == "Back"
+			debugger
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
@@ -59,6 +61,7 @@ class QuizzesController < ApplicationController
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
 		else
+			debugger
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions

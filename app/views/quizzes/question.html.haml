@@ -11,58 +11,55 @@
         = @question.name.html_safe
         -if @question.option_type == 0
           %div
-            = label_tag :A, 'A:'
-            = radio_button_tag :answer1, 'answer1', :as => :radio
+            = label_tag :A
+            = radio_button_tag :answer, 'answer'
             = @question.answer.A
           %br
           %div
-            = label_tag :B, 'B:'
-            = radio_button_tag :answer1, 'answer1', :as => :radio
+            = label_tag :B
+            = radio_button_tag :answer, 'answer'
             = @question.answer.B
           %br
           %div
-            = label_tag :C, 'C:'
-            = radio_button_tag :answer1, 'answer1', :as => :radio
+            = label_tag :C
+            = radio_button_tag :answer, 'answer'
             = @question.answer.C
           %br
           %div
-            = label_tag :D, 'D:'
-            = radio_button_tag :answer1, 'answer1', :as => :radio
+            = label_tag :D
+            = radio_button_tag :answer, 'answer'
             = @question.answer.D
         - elsif @question.option_type == 1
           %div
-            = label_tag :Answer1
-            = check_box_tag :answer1
+            = label_tag(:A, "A")
+            = check_box_tag :answer
             = @question.answer.A
           %br
           %div
-            = label_tag :Answer2
-            = check_box_tag :answer1
+            = label_tag(:B, "B")
+            = check_box_tag :answer
             = @question.answer.B
           %br
           %div
-            = label_tag :Answer3
-            = check_box_tag :answer1
+            = label_tag(:C, "C")
+            = check_box_tag :answer
             = @question.answer.C
           %br
           %div
-            = label_tag :Answer4
-            = check_box_tag :answer1
+            = label_tag(:D, "D")
+            = check_box_tag :answer
             = @question.answer.D
         - else
           %div
             = label_tag :wright_answer
             = text_area_tag :create_answer
         %br
-        = submit_tag("Back", :class => "submit", :id => "back_button")
+        - if @current != 0
+          = submit_tag("Back", :class => "submit", :id => "back_button")
         = submit_tag("Continue", :class => "submit")
         = hidden_field_tag :category_id, "#{@category.id}"
         - content_for(:title) do
           Question #{@current + 1} of #{@total}
-:javascript
-$(document).ready(function{
-  
-})
 / :javascript
 /   $(document).ready(function() {
 /     var set_timer = function() {
