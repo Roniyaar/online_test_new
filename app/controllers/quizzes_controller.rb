@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
+	before_filter :authenticate_user!
 	def index
-		@quizzes = Quiz.all
+		@categories = Category.all
 	end
 	def new
 		@questions = Question.all
@@ -15,14 +16,16 @@ class QuizzesController < ApplicationController
 		end
 	end
 	def start
-		@questions = Question.all
-		total = @questions.count.to_i
-		all_question = Question.find(:all).map {|x| x.id}
+		debugger
+		@category = Category.find(params[:category_id])
+		@question = @category.questions
+		total = @question.count.to_i
+		all_question = @category.questions
 		session[:questions] = all_question.sort_by{rand}[0..(total-1)]
 		session[:total] = total
 		session[:current] = 0
 		session[:correct] = 0
-		redirect_to question_quizzes_path
+		redirect_to question_quizzes_path(:category_id => @category.id)
 	end
 	# def new
 	# 	debugger
@@ -30,9 +33,12 @@ class QuizzesController < ApplicationController
 	# 	@quiz = Quiz.new
 	# end
 	def question
+		debugger
 		if params[:commit] == "Continue" || params[:commit] == "Back"
+			debugger
 			@quiz = Quiz.new
-			@questions = Question.all
+			@category = Category.find(params[:category_id])
+			@question = @category.questions
 			@current = session[:current] + 1
 			session[:current] = @current
 			@total = session[:total]
@@ -43,8 +49,10 @@ class QuizzesController < ApplicationController
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
 		else
+			debugger
 			@quiz = Quiz.new
-			@questions = Question.all
+			@category = Category.find(params[:category_id])
+			@question = @category.questions
 			@current = session[:current]
 			@total = session[:total]
 			if @current >= @total
