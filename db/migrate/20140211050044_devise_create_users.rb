@@ -4,7 +4,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       # Custome attributes
       t.string :name
-      t.string :image
+      t.text :address
+      t.integer :mobile_no
 
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""

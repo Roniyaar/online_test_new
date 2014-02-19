@@ -1,10 +1,11 @@
 class CreateQuizzes < ActiveRecord::Migration
   def change
     create_table :quizzes do |t|
-    	t.string :answer1
-	    t.string :answer2
+    	t.string :answer
 	    t.text :create_answer
+	    t.integer :duration
 	    t.integer :user_id
+	    t.integer :category_id
       t.timestamps
     end
   end
