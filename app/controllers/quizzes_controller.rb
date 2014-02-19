@@ -16,7 +16,6 @@ class QuizzesController < ApplicationController
 		end
 	end
 	def start
-		debugger
 		@category = Category.find(params[:category_id])
 		@question = @category.questions
 		total = @question.count.to_i
@@ -33,9 +32,7 @@ class QuizzesController < ApplicationController
 	# 	@quiz = Quiz.new
 	# end
 	def question
-		debugger
-		if params[:commit] == "Continue" || params[:commit] == "Back"
-			debugger
+		if params[:commit] == "Continue"
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
@@ -48,8 +45,20 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
+		elsif params[:commit] == "Back"
+			@quiz = Quiz.new
+			@category = Category.find(params[:category_id])
+			@question = @category.questions
+			@current = session[:current] - 1
+			session[:current] = @current
+			@total = session[:total]
+			if @current >= @total
+				redirect_to finish_quizzes_path
+				return
+			end
+			@question = Question.find(session[:questions][@current])
+			@answer = @question.answer
 		else
-			debugger
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
