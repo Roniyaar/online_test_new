@@ -50,7 +50,6 @@ class QuizzesController < ApplicationController
 				hash[:r_id] = { params[:question_id] => {"correct_answer" => [params[:correct_answer]]}}
 			end
 
-			debugger if @current > 3
 			if @current >= @total
 				redirect_to finish_quizzes_path(:category_id => @category.id)
 			else
@@ -102,6 +101,7 @@ class QuizzesController < ApplicationController
 		# session[:current] += 1
 	end
 	def finish
+		debugger
 		@correct = session[:correct]
 		@total = session[:total]
 		@quiz = Quiz.new
@@ -109,9 +109,11 @@ class QuizzesController < ApplicationController
 		@quiz.category_id = params[:category_id]
 		@quiz.user_id = current_user.id
 		if @quiz.save
-			redirect_to root_path
+			redirect_to finish_exam_quizzes_path
 		end
-
 		# @score = @correct * 100/@total
+	end
+	def finish_exam
+		
 	end
 end

@@ -1,7 +1,7 @@
 class CreateQuizzes < ActiveRecord::Migration
   def change
     create_table :quizzes do |t|
-    	t.string :answer
+    	t.text :answers
 	    t.text :create_answer
 	    t.integer :duration
 	    t.integer :user_id

@@ -22,6 +22,7 @@ OnlineTest::Application.routes.draw do
       post 'start'
       post 'question'
       post 'exam'
+      get 'finish_exam'
     end
     member do
       get 'start'
