@@ -12,22 +12,22 @@
         -if @question.option_type == 0
           %div
             = label_tag :A
-            = radio_button_tag :answer, @question.answer.A
+            = radio_button_tag :answers, @question.answer.A
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = radio_button_tag :answer, @question.answer.B
+            = radio_button_tag :answers, @question.answer.B
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = radio_button_tag :answer, @question.answer.C
+            = radio_button_tag :answers, @question.answer.C
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = radio_button_tag :answer, @question.answer.D
+            = radio_button_tag :answers, @question.answer.D
             = @question.answer.D
         - elsif @question.option_type == 1
           %div

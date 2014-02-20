@@ -43,15 +43,17 @@ class QuizzesController < ApplicationController
 			hash = {}
 			@q = Question.find(params[:question_id])
 			if @q.option_type == 0
-			  hash[:r_id] = {params[:question_id]=>{"answer"=>params[:answer]}}
+			  hash[:r_id] = {params[:question_id]=>{"answers"=>params[:answers]}}
 			elsif @q.option_type == 1
-			  hash[:r_id] = {params[:question_id]=>{"a"=>params[:a],"b"=>params[:b],"c"=>params[:c],"d"=>params[:d]}}
+			  hash[:r_id] = {params[:question_id]=>{"A"=>params[:answer_a],"B"=>params[:answer_b],"C"=>params[:answer_c],"D"=>params[:answer_d]}}
 			else
-				hash[:r_id] = { params[:question_id] => {"correct_answer" => [params[:correct_answer]]}}
+				hash[:r_id] = { params[:question_id] => {"correct_answer" => [params[:create_answer]]}}
 			end
+			# session[@q.id] =  hash[:r_id]
+			session[:answer][@q.id] = hash[:r_id]
 
 			if @current >= @total
-				redirect_to finish_quizzes_path(:category_id => @category.id)
+				redirect_to finish_quizzes_path(:category_id => @category.id, :question_id => @q.id)
 			else
 			  @question = Question.find(session[:questions][@current])
 			  @answer = @question.answer
@@ -101,11 +103,10 @@ class QuizzesController < ApplicationController
 		# session[:current] += 1
 	end
 	def finish
-		debugger
 		@correct = session[:correct]
 		@total = session[:total]
 		@quiz = Quiz.new
-		@quiz.answers = session[:hash]
+		@quiz.answers = session[:answer][:question_id]
 		@quiz.category_id = params[:category_id]
 		@quiz.user_id = current_user.id
 		if @quiz.save
