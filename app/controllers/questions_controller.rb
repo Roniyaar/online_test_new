@@ -16,7 +16,6 @@ class QuestionsController < ApplicationController
 	def create
     @category = Category.find(params[:question][:category_id])
     @question = @category.questions.build(params[:question])
-    debugger
     if @question.option_type == 0
       answer_attributes = [params[:A], params[:B], params[:C], params[:D]]
       @question.build_answer(:question_answer => answer_attributes, :correct_answer => [params[:right_answer]])
@@ -28,7 +27,6 @@ class QuestionsController < ApplicationController
       @question.build_answer(:question_answer => answer_attributes)
     end
     respond_to do |format|
-      debugger
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }

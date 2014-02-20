@@ -27,14 +27,9 @@ class QuizzesController < ApplicationController
 		session[:correct] = 0
 		redirect_to question_quizzes_path(:category_id => @category.id)
 	end
-	# def new
-	# 	debugger
-	# 	@question = Question.find(session[:questions]
-	# 	@quiz = Quiz.new
-	# end
+
 	def question
 		if params[:commit] == "Continue"
-			# @quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] + 1
@@ -43,19 +38,19 @@ class QuizzesController < ApplicationController
 			hash = {}
 			@q = Question.find(params[:question_id])
 			if @q.option_type == 0
-			  hash = {params[:question_id]=>{"answers"=>params[:answers]}}
+			  hash[params[:question_id]] = params[:answers]
 			elsif @q.option_type == 1
-			  hash = {params[:question_id]=>{"A"=>params[:answer_a],"B"=>params[:answer_b],"C"=>params[:answer_c],"D"=>params[:answer_d]}}
+			  hash[params[:question_id]]= [params[:answer_a], params[:answer_b], params[:answer_c], params[:answer_d]]
 			else
-				hash = { params[:question_id] => {"correct_answer" => [params[:create_answer]]}}
+				hash[params[:question_id]] = params[:create_answer]
 			end
-			if session[:r_id].nil?
-				session[:r_id]={}
-				session[:r_id].store(params[:question_id],hash)
+			if session[:user_answers].nil?
+				session[:user_answers]={}
+				session[:user_answers].store(params[:question_id],hash)
 			else
-				session[:r_id].store(params[:question_id],hash)
+				session[:user_answers].store(params[:question_id],hash)
 			end
-			answer = session[:r_id]
+			answer = session[:user_answers]
 			if @current >= @total
 				redirect_to finish_quizzes_path(:category_id => @category.id, :question_id => @q.id)
 			else
@@ -95,32 +90,35 @@ class QuizzesController < ApplicationController
 		@question = Question.find(session[:questions][@current])
 		@total = session[:total]
 		examid = params[:exam]
-		# session[:question] = @question
-		# session[:exam] = @exam
-		# @exam = examid ? Answer.find(examid) : nil
-		# if @answer && @answer.correct
-		# 	@correct = true
-		# 	session[:correct] += 1
-		# else
-		# 	@correct = false
-		# end
-		# session[:current] += 1
 	end
 	def finish
 		@correct = session[:correct]
 		@total = session[:total]
-		@quiz = Quiz.new
-		@quiz.answers = session[:r_id]
-		# @quiz.create_answer = 
-		@quiz.category_id = params[:category_id]
-		@quiz.user_id = current_user.id
+		@quiz = Quiz.new(:answers => session[:user_answers], :category_id => params[:category_id], :user_id => current_user.id, :correct_answers => find_correct_answers(session[:user_answers]))
 		if @quiz.save
-			session.delete(:r_id)
+			session.delete(:user_answers)
 			redirect_to finish_exam_quizzes_path
 		end
 		# @score = @correct * 100/@total
 	end
 	def finish_exam
 		
+	end
+
+	private
+	def find_correct_answers(user_answers)
+		count = 0
+		# ua = user_answers.values
+		user_answers.each do |key, value|
+			question = Question.find_by_id(key)
+			user_answer = value[key]
+			if question.option_type == 0
+				actual_answer = question.answer.right_answer
+			elsif question.option_type == 1
+				actual_answer = question.answer.right_choices.reject(&:empty?)
+			end
+			actual_answer == user_answer ? (count += 1) : count
+		end
+		return count
 	end
 end

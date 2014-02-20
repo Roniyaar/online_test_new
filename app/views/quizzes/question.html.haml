@@ -12,42 +12,42 @@
         -if @question.option_type == 0
           %div
             = label_tag :A
-            = radio_button_tag :answers, @question.answer.A
+            = radio_button_tag :answers, 'A'
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = radio_button_tag :answers, @question.answer.B
+            = radio_button_tag :answers, 'B'
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = radio_button_tag :answers, @question.answer.C
+            = radio_button_tag :answers, 'C'
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = radio_button_tag :answers, @question.answer.D
+            = radio_button_tag :answers, 'D'
             = @question.answer.D
         - elsif @question.option_type == 1
           %div
             = label_tag :A
-            = check_box_tag :answer_a, @question.answer.A
+            = check_box_tag :answer_a, 'A'
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = check_box_tag :answer_b, @question.answer.B
+            = check_box_tag :answer_b, 'B'
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = check_box_tag :answer_c, @question.answer.C
+            = check_box_tag :answer_c, 'C'
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = check_box_tag :answer_d, @question.answer.D
+            = check_box_tag :answer_d, 'D'
             = @question.answer.D
         - else
           %div
