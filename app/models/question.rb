@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   belongs_to :category
   has_one :answer
   belongs_to :quiz
+  has_one :descriptive
   accepts_nested_attributes_for :answer
   OPTIONS = {'single_choice' => 0, 'multiple_choice' => 1, 'descriptive' => 2}
   #validates :name, :category_id, :option_type, presence: true

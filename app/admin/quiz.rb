@@ -12,9 +12,7 @@ ActiveAdmin.register Quiz do
     column :question_category do |q|
       Category.find_by_id(q.category_id).question_category
     end
-    column "create_answer" do |ca|
-      link_to "Descriptive", admin_results_path
-    end
+    column :create_answer
 		# column "create_answer" do |user_attempted_answers|
 		# 	user_attempted_answers.answers.each do |key, value|
 		# 		question = Question.find_by_id(key)
@@ -25,5 +23,12 @@ ActiveAdmin.register Quiz do
 		# end
 
 		column :correct_answers
+	end
+	controller do
+		def check_descriptive_answers
+			respond_to do |format|
+				format.js
+			end
+		end
 	end
 end

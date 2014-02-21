@@ -9,5 +9,6 @@ class User < ActiveRecord::Base
   #validates :mobile_no, format: { with: /\d{3}-\d{3}-\d{4}/, message: "bad format" }
   validates :mobile_no, numericality: { only_integer: true }
   has_many :quizzes
+  has_many :descriptives, :dependent => :destroy
   # attr_accessible :title, :body
 end
