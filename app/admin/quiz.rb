@@ -12,14 +12,18 @@ ActiveAdmin.register Quiz do
     column :question_category do |q|
       Category.find_by_id(q.category_id).question_category
     end
+    column "create_answer" do |ca|
+      link_to "Descriptive", admin_results_path
+    end
 		# column "create_answer" do |user_attempted_answers|
-		# 	user_attempted_answers.each do |key, value|
+		# 	user_attempted_answers.answers.each do |key, value|
 		# 		question = Question.find_by_id(key)
 		# 		if question.option_type == 2
 		# 		  user_answer = value[key]
 		# 		end
 		# 	end
 		# end
+
 		column :correct_answers
 	end
 end
