@@ -35,15 +35,20 @@ class QuizzesController < ApplicationController
 			@current = session[:current] + 1
 			session[:current] = @current
 			@total = session[:total]
+			### Initializing hash ###
 			hash = {}
 			@q = Question.find(params[:question_id])
+			######Checking option type and send answer in params#######
 			if @q.option_type == 0
 			  hash[params[:question_id]] = params[:answers]
 			elsif @q.option_type == 1
-			  hash[params[:question_id]]= [params[:answer_a], params[:answer_b], params[:answer_c], params[:answer_d]]
+			  hash[params[:question_id]]= params[:answer_a], params[:answer_b], params[:answer_c], params[:answer_d]
 			else
 				hash[params[:question_id]] = params[:create_answer]
 			end
+			######################################
+			### merging hash into exising hash ###
+			######################################
 			if session[:user_answers].nil?
 				session[:user_answers]={}
 				session[:user_answers].store(params[:question_id],hash)
@@ -51,6 +56,9 @@ class QuizzesController < ApplicationController
 				session[:user_answers].store(params[:question_id],hash)
 			end
 			answer = session[:user_answers]
+			################################################
+			## Checking codition for displaying questions ##
+			################################################
 			if @current >= @total
 				redirect_to finish_quizzes_path(:category_id => @category.id, :question_id => @q.id)
 			else
@@ -94,7 +102,11 @@ class QuizzesController < ApplicationController
 	def finish
 		@correct = session[:correct]
 		@total = session[:total]
-		@quiz = Quiz.new(:answers => session[:user_answers], :category_id => params[:category_id], :user_id => current_user.id, :correct_answers => find_correct_answers(session[:user_answers]))
+		@quiz = Quiz.new(:answers => session[:user_answers],
+			               :category_id => params[:category_id],
+			               :user_id => current_user.id,
+			               :correct_answers => find_correct_answers(session[:user_answers])
+			              )
 		if @quiz.save
 			session.delete(:user_answers)
 			redirect_to finish_exam_quizzes_path
