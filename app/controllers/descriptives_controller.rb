@@ -1,0 +1,2 @@
+class DescriptivesController < ApplicationController
+end

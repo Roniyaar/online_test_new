@@ -12,7 +12,6 @@ class Quiz < ActiveRecord::Base
   	user_answers.each do |k, v|
   		option_type = Question.find(k).option_type.to_i
   		if option_type == 2
-  			debugger
   			descriptive_qs[k] = v.values.first
   		end
   	end

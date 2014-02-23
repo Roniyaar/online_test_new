@@ -29,7 +29,10 @@ OnlineTest::Application.routes.draw do
       get 'start'
     end
   end
+
+  resources :descriptives
   match '/admin/questions/choices' =>  'admin/questions#questions_choices',  :via => 'post', :as => :admin_question_type_choices
+  # match '/admin/descriptives/accept' =>  'admin/descriptives#descriptives_accept',  :via => 'post', :as => :admin_descriptive_accept  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -2,7 +2,7 @@ ActiveAdmin.register Quiz do
 	actions :index
 	index do
 		column :id
-		column :user_id
+		# column :user_id
 		column "name" do |n|
       User.find_by_id(n.user_id).name
     end
