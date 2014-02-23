@@ -108,6 +108,7 @@ class QuizzesController < ApplicationController
 			               :correct_answers => find_correct_answers(session[:user_answers])
 			              )
 		if @quiz.save
+			@quiz.create_descriptive_answers(session[:user_answers])
 			session.delete(:user_answers)
 			redirect_to finish_exam_quizzes_path
 		end
