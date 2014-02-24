@@ -1,4 +1,4 @@
-.login_page
+.quiz_start
   .container.quiz
     .question_form
       %h1
@@ -55,7 +55,9 @@
             = text_area_tag :create_answer
         %br
         - if @current != 0
-          = submit_tag("Back", :class => "submit", :id => "back_button")
+          = link_to "back", back_button_quizzes_path, :id => "go_back", :remote => true
+          / = submit_tag("Back", :class => "submit", :id => "go_back", :remote => true)
+          = #button_to "Back", back_button_quizzes_path, :id => "go_back", :remote => true
         = submit_tag("Continue", :class => "submit")
         = hidden_field_tag :category_id, "#{@category.id}"
         = hidden_field_tag :question_id, "#{@question.id}"
@@ -66,6 +68,18 @@
           = f.category_id :value => @category.id
           = f.user_id :value => current_user.id
           = f.submit
+
+:javascript
+$(document).ready(function(){
+  $("#go_back").on('click', function(){
+    $.ajax({
+      type: 'get',
+      url: "/quizzes/back_button",
+      data: { category_id: "1"}
+    })
+  })
+})
+
 / :javascript
 /   $(document).ready(function() {
 /     var set_timer = function() {

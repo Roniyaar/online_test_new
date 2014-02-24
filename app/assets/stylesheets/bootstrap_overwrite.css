@@ -1,0 +1,8 @@
+.navbar-inner {
+	background-image: url("header_bg123.png") !important;
+	height: 90px;
+}
+.navbar .brand {
+	color: #DAD8E4;
+	text-shadow :none !important;
+}

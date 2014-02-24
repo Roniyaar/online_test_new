@@ -1,0 +1,39 @@
+#wrap {
+  height: auto !important;
+  margin: 0 auto -60px;
+  min-height: 100%;
+}
+#push, #footer {
+  height: 60px;
+}
+#footer {
+  background-color: #097587;
+  bottom: 0;
+  height: 5%;
+  position: absolute;
+  width: 96%;
+}
+@media (max-width: 767px) {
+#footer {
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+}
+#wrap > .container {
+  padding-top: 60px;
+}
+.container .credit {
+  /*margin: 20px 0;*/
+}
+code {
+  font-size: 80%;
+}
+
+/*.main_header {
+  background-color: #097587;
+}*/
+.main_header {
+  background-image: url("header_bg123.png")
+}

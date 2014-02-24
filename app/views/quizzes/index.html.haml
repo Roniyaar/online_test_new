@@ -1,11 +1,26 @@
-%h1 Start Quiz
-= form_tag({:controller => "quizzes",:action => "start"}) do
-  %div
-    = label_tag :category
-    = select_tag :category_id,options_for_select(Category.all.collect{|p| [p.question_category, p.id]}), :prompt => "please select category"
-  %p.center
-    =# select_tag(:number, options_for_select((1..10).map {|x| [x, x]}), :id => "count")
-  .center
-    = submit_tag "Start!", :class => "submit"
-- content_for(:title) do
-  Start Quiz
+.quiz_start
+  .container.quiz
+    .question_form
+      %h1 Instructions
+      %h4 Welcome in IGNIS IT SOLUTION
+      %h4 Examination Instructions: Online Exams:
+      %ol
+        %li
+          All the questions are compulsory to attempt.
+        %li
+          No breaks were taken during the exam.
+        %li
+          Questions may be Single-choice/Multi-choice/Descriptive.
+        %li
+          Result will be mailed at your Email Id which you provided at time of Registration.
+      = form_tag({:controller => "quizzes",:action => "start"}) do
+        %div
+          = label_tag :subject
+          = select_tag :category_id,options_for_select(Category.all.collect{|p| [p.question_category, p.id]}), :prompt => "please select category"
+        %p.center
+          =# select_tag(:number, options_for_select((1..10).map {|x| [x, x]}), :id => "count")
+        %br
+        .center
+          = button_tag "Start Test", :class => "btn btn-danger"
+      - content_for(:title) do
+        Start Quiz

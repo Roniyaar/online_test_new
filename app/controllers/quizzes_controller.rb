@@ -118,6 +118,21 @@ class QuizzesController < ApplicationController
 		
 	end
 
+	def back_button
+		@category = Category.find(params[:category_id])
+		@question = @category.questions
+		@current = session[:current] - 1
+		session[:current] = @current
+		@total = session[:total]
+		if @current >= @total
+			redirect_to finish_quizzes_path
+		end
+		@question = Question.find(session[:questions][@current])
+		respond_to do |format|
+			format.js
+		end
+	end
+
 	private
 	def find_correct_answers(user_answers)
 		count = 0

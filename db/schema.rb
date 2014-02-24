@@ -87,13 +87,13 @@ ActiveRecord::Schema.define(:version => 20140223101819) do
   end
 
   create_table "quizzes", :force => true do |t|
-    t.text     "answers",         :limit => 255
+    t.text     "answers"
     t.text     "create_answer"
     t.integer  "duration"
     t.integer  "user_id"
     t.integer  "category_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "correct_answers"
   end
 

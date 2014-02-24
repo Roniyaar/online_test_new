@@ -30,6 +30,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'active_admin_editor'
 gem 'ckeditor_rails'
 gem "font-awesome-rails"
+gem 'bootstrap-wysihtml5-rails'
 #gem 'will_paginate', '~> 3.0'
 #gem 'phony_rails'
 

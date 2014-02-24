@@ -15,7 +15,6 @@ class Quiz < ActiveRecord::Base
   			descriptive_qs[k] = v.values.first
   		end
   	end
-
   	# Now create descriptve objects associated with this quiz
   	unless descriptive_qs.empty?
   		descriptive_qs.each do |q, a|
