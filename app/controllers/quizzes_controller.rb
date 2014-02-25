@@ -29,7 +29,7 @@ class QuizzesController < ApplicationController
 	end
 
 	def question
-		if params[:commit] == "Continue"
+		if params[:commit] == "Continue" || params[:commit] == "Finish"
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] + 1

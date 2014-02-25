@@ -1,3 +1,14 @@
+%h1 Start Quiz
+= form_tag({:controller => "quizzes",:action => "start"}) do
+  %div
+    = label_tag :category
+    = select_tag :category_id,options_for_select(Category.all.collect{|p| [p.question_category, p.id]}), :prompt => "please select category"
+  %p.center
+    =# select_tag(:number, options_for_select((1..10).map {|x| [x, x]}), :id => "count")
+  .center
+    = submit_tag "Start!", :class => "submit"
+- content_for(:title) do
+  Start Quiz
 .quiz_start
   .container.quiz
     .question_form
@@ -9,6 +20,7 @@
           All the questions are compulsory to attempt.
         %li
           No breaks were taken during the exam.
+          You can not take break during online test.
         %li
           Questions may be Single-choice/Multi-choice/Descriptive.
         %li
