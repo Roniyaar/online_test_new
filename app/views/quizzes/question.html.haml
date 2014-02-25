@@ -7,6 +7,7 @@
       .pull-right.time-left
         %span Time left
         %span.label.label-success{ id: 'timer'}
+        -debugger
       = form_tag({:controller => "quizzes", :action => "question"}) do
         = @question.name.html_safe
         -if @question.option_type == 0
@@ -52,7 +53,8 @@
         - else
           %div
             = label_tag :write_answer
-            = text_area_tag :create_answer
+            = text_area_tag :create_answer, @descriptive_value[@question.id][@question.id]
+            =# @var[@question.id][@question.id]
         %br
         - if @current != 0
           = #link_to "back", question_back_button_quizzes_path, :id => "go_back", :remote => true

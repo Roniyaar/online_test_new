@@ -17,6 +17,7 @@ class QuizzesController < ApplicationController
 	# end
 	def start
 		@quiz = Quiz.new
+		session.delete(:user_answers)
 		@category = Category.find(params[:category_id])
 		@question = @category.questions
 		total = @question.count.to_i
@@ -30,6 +31,9 @@ class QuizzesController < ApplicationController
 
 	def question
 		if params[:commit] == "Continue" || params[:commit] == "Finish"
+			# if session[:current] = 0
+			# 	session.delete(:user_answers)
+			# end
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] + 1
@@ -55,7 +59,7 @@ class QuizzesController < ApplicationController
 			else
 				session[:user_answers].store(params[:question_id],hash)
 			end
-			answer = session[:user_answers]
+			@descriptive_value = session[:user_answers]
 			################################################
 			## Checking codition for displaying questions ##
 			################################################
@@ -66,6 +70,9 @@ class QuizzesController < ApplicationController
 			  @answer = @question.answer
 			end
 		elsif params[:commit] == "Back"
+			if session[:current] = 0
+				session.delete(:user_answers)
+			end
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] - 1
