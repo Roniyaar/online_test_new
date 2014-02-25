@@ -5,4 +5,10 @@
 .navbar .brand {
 	color: #DAD8E4;
 	text-shadow :none !important;
+	margin-top: 20px;
+}
+.navbar .brand:hover {
+	background-color: #097587;
+	text-shadow :none !important;
+	border-radius: 4px 4px 4px 4px;
 }

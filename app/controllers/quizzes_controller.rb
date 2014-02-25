@@ -7,14 +7,14 @@ class QuizzesController < ApplicationController
 		@questions = Question.all
 		@quiz = Quiz.new
 	end
-	def create
-		@quiz = Quiz.new(params[:quiz])
-		if @quiz.save
-			redirect_to quizzes_path
-		else
-			render 'new'
-		end
-	end
+	# def create
+	# 	@quiz = Quiz.new(params[:quiz])
+	# 	if @quiz.save
+	# 		redirect_to quizzes_path
+	# 	else
+	# 		render 'new'
+	# 	end
+	# end
 	def start
 		@quiz = Quiz.new
 		@category = Category.find(params[:category_id])
@@ -66,7 +66,6 @@ class QuizzesController < ApplicationController
 			  @answer = @question.answer
 			end
 		elsif params[:commit] == "Back"
-			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] - 1
@@ -102,8 +101,7 @@ class QuizzesController < ApplicationController
 	def finish
 		@correct = session[:correct]
 		@total = session[:total]
-		@quiz = Quiz.new(:answers => session[:user_answers],
-			               :category_id => params[:category_id],
+		@quiz = Quiz.new(:category_id => params[:category_id],
 			               :user_id => current_user.id,
 			               :correct_answers => find_correct_answers(session[:user_answers])
 			              )
@@ -118,20 +116,20 @@ class QuizzesController < ApplicationController
 		
 	end
 
-	def back_button
-		@category = Category.find(params[:category_id])
-		@question = @category.questions
-		@current = session[:current] - 1
-		session[:current] = @current
-		@total = session[:total]
-		if @current >= @total
-			redirect_to finish_quizzes_path
-		end
-		@question = Question.find(session[:questions][@current])
-		respond_to do |format|
-			format.js
-		end
-	end
+	# def question_back_button
+	# 	@category = Category.find(params[:category_id])
+	# 	@question = @category.questions
+	# 	@current = session[:current] - 1
+	# 	session[:current] = @current
+	# 	@total = session[:total]
+	# 	if @current >= @total
+	# 		redirect_to finish_quizzes_path
+	# 	end
+	# 	@question = Question.find(session[:questions][@current])
+	# 	respond_to do |format|
+	# 		format.js
+	# 	end
+	# end
 
 	private
 	def find_correct_answers(user_answers)
@@ -149,4 +147,19 @@ class QuizzesController < ApplicationController
 		end
 		return count
 	end
+
+	# def steps
+ #    @total
+ #  end
+ #  def current_step
+ #    @current || steps.first	
+ #  end
+
+ #  def previous_step
+ #  	self.current_step = steps[steps.index(current_step)-1]
+ #  end
+  
+ #  def next_step
+ #  	self.current_step = steps[steps.index(current_step)+1]
+ #  end
 end

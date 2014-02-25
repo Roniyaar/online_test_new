@@ -24,8 +24,8 @@ OnlineTest::Application.routes.draw do
       post 'exam'
       get 'finish_exam'
       post 'check_descriptive_answers'
-      get 'back_button'
-      post 'back_button'
+      get 'question_back_button'
+      # post 'question_back_button'
     end
     member do
       get 'start'

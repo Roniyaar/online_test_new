@@ -22,16 +22,19 @@ class Quiz < ActiveRecord::Base
   		end
   	end
   end
+  # def steps
+  #   debugger
+  #   @total
+  # end
+  # def current_step
+  #   @current || steps.first	
+  # end
 
-  def current_step
-    @current || steps.first	
-  end
-
-  def previous_step
-  	self.current_step = steps[steps.index(current_step)-1]
-  end
+  # def previous_step
+  # 	self.current_step = steps[steps.index(current_step)-1]
+  # end
   
-  def next_step
-  	self.current_step = steps[steps.index(current_step)+1]
-  end
+  # def next_step
+  # 	self.current_step = steps[steps.index(current_step)+1]
+  # end
 end

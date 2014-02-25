@@ -1,6 +1,10 @@
 ActiveAdmin.register User do
-	index do
-	  column :name
-	  column :email
-	end
+	actions :index
+	# index do
+	# 	column :id
+	#   column :name
+	#   column :email
+	#   column :mobile_no
+	#   column :address
+	# end
 end
