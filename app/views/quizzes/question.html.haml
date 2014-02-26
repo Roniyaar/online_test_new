@@ -12,53 +12,54 @@
         -if @question.option_type == 0
           %div
             = label_tag :A
-            = radio_button_tag :answers, 'A', @user_answer
+            = radio_button_tag :answers, 'A'
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = radio_button_tag :answers, 'B', @user_answer
+            = radio_button_tag :answers, 'B'
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = radio_button_tag :answers, 'C', @user_answer
+            = radio_button_tag :answers, 'C'
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = radio_button_tag :answers, 'D', @user_answer
+            = radio_button_tag :answers, 'D'
             = @question.answer.D
         - elsif @question.option_type == 1
           %div
             = label_tag :A
-            = check_box_tag :answer_a, 'A', @user_answer
+            = check_box_tag :answer_a, 'A'
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = check_box_tag :answer_b, 'B', @user_answer
+            = check_box_tag :answer_b, 'B'
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = check_box_tag :answer_c, 'C', @user_answer
+            = check_box_tag :answer_c, 'C'
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = check_box_tag :answer_d, 'D', @user_answer
+            = check_box_tag :answer_d, 'D'
             = @question.answer.D
         - else
           %div
             = label_tag :write_answer
-            = text_area_tag :create_answer, @user_answer
+            = text_area_tag :create_answer
             =# @var[@question.id][@question.id]
             =# @descriptive_value[@question.id][@question.id]
         %br
         - if @current != 0
           = #link_to "back", question_back_button_quizzes_path, :id => "go_back", :remote => true
-          = submit_tag("Back", :class => "submit", :id => "go_back", :remote => true)
+          = #submit_tag("Back", :class => "submit", :id => "go_back")
+          = link_to_function "Back", "history.back()", :id => "go_back", :class => "buttons"
         -if @current + 1 == @total
           = submit_tag("Finish", :class => "submit")
         -else
@@ -67,12 +68,13 @@
         = hidden_field_tag :question_id, "#{@question.id}"
         - content_for(:title) do
           Question #{@current + 1} of #{@total}
-/ :javascript
-/   $(document).ready(function() { 
-/     $("#go_back").on('click',function(){
-/       $.ajax({
-/         url: "#{question_back_button_quizzes_path(:category_id => params[:category_id], :question_id => params[:question_id])}",
-/         type: "get"
-/       })
-/     })
-/   })
+:javascript
+$(document).ready(function() {
+  $("#go_back").on('click',function(){
+    $.ajax({
+      url: "#{question_back_button_quizzes_path(:category_id => params[:category_id], :question_id => params[:question_id])}",
+      type: "get"
+    })
+  })
+})
+  

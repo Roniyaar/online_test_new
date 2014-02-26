@@ -57,7 +57,7 @@ class QuizzesController < ApplicationController
 				session[:user_answers].store(params[:question_id],hash)
 			end
 			################################################
-			## Checking codition for displaying questions ##
+			## Checking condition for displaying questions ##
 			################################################
 			if @current >= @total
 				redirect_to finish_quizzes_path(:category_id => @category.id, :question_id => @q.id)
@@ -76,11 +76,11 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
-			@descriptive_value = session[:user_answers]
-			@descriptive_value.each do |key, value|
-				question = Question.find_by_id(key)
-			  @user_answer = value[key]
-			end
+			# @descriptive_value = session[:user_answers]
+			# @descriptive_value.each do |key, value|
+			# 	question = Question.find_by_id(key)
+			#   @user_answer = value[key]
+			# end
 		else
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
@@ -121,20 +121,20 @@ class QuizzesController < ApplicationController
 		
 	end
 
-	# def question_back_button
-	# 	@category = Category.find(params[:category_id])
-	# 	@question = @category.questions
-	# 	@current = session[:current] - 1
-	# 	session[:current] = @current
-	# 	@total = session[:total]
-	# 	if @current >= @total
-	# 		redirect_to finish_quizzes_path
-	# 	end
-	# 	@question = Question.find(session[:questions][@current])
-	# 	respond_to do |format|
-	# 		format.js
-	# 	end
-	# end
+	def question_back_button
+		@category = Category.find(params[:category_id])
+		@question = @category.questions
+		@current = session[:current] - 1
+		session[:current] = @current
+		@total = session[:total]
+		if @current >= @total
+			redirect_to finish_quizzes_path
+		end
+		@question = Question.find(session[:questions][@current])
+		respond_to do |format|
+			format.js
+		end
+	end
 
 	private
 	def find_correct_answers(user_answers)
