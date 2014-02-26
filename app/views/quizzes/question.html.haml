@@ -7,54 +7,54 @@
       .pull-right.time-left
         %span Time left
         %span.label.label-success{ id: 'timer'}
-        -debugger
       = form_tag({:controller => "quizzes", :action => "question"}) do
         = @question.name.html_safe
         -if @question.option_type == 0
           %div
             = label_tag :A
-            = radio_button_tag :answers, 'A'
+            = radio_button_tag :answers, 'A', @user_answer
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = radio_button_tag :answers, 'B'
+            = radio_button_tag :answers, 'B', @user_answer
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = radio_button_tag :answers, 'C'
+            = radio_button_tag :answers, 'C', @user_answer
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = radio_button_tag :answers, 'D'
+            = radio_button_tag :answers, 'D', @user_answer
             = @question.answer.D
         - elsif @question.option_type == 1
           %div
             = label_tag :A
-            = check_box_tag :answer_a, 'A'
+            = check_box_tag :answer_a, 'A', @user_answer
             = @question.answer.A
           %br
           %div
             = label_tag :B
-            = check_box_tag :answer_b, 'B'
+            = check_box_tag :answer_b, 'B', @user_answer
             = @question.answer.B
           %br
           %div
             = label_tag :C
-            = check_box_tag :answer_c, 'C'
+            = check_box_tag :answer_c, 'C', @user_answer
             = @question.answer.C
           %br
           %div
             = label_tag :D
-            = check_box_tag :answer_d, 'D'
+            = check_box_tag :answer_d, 'D', @user_answer
             = @question.answer.D
         - else
           %div
             = label_tag :write_answer
-            = text_area_tag :create_answer, @descriptive_value[@question.id][@question.id]
+            = text_area_tag :create_answer, @user_answer
             =# @var[@question.id][@question.id]
+            =# @descriptive_value[@question.id][@question.id]
         %br
         - if @current != 0
           = #link_to "back", question_back_button_quizzes_path, :id => "go_back", :remote => true

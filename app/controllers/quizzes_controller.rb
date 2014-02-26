@@ -31,9 +31,6 @@ class QuizzesController < ApplicationController
 
 	def question
 		if params[:commit] == "Continue" || params[:commit] == "Finish"
-			# if session[:current] = 0
-			# 	session.delete(:user_answers)
-			# end
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] + 1
@@ -44,9 +41,9 @@ class QuizzesController < ApplicationController
 			@q = Question.find(params[:question_id])
 			######Checking option type and send answer in params#######
 			if @q.option_type == 0
-			  hash[params[:question_id]] = params[:answers]
+				hash[params[:question_id]] = params[:answers]
 			elsif @q.option_type == 1
-			  hash[params[:question_id]]= params[:answer_a], params[:answer_b], params[:answer_c], params[:answer_d]
+				hash[params[:question_id]]= params[:answer_a], params[:answer_b], params[:answer_c], params[:answer_d]
 			else
 				hash[params[:question_id]] = params[:create_answer]
 			end
@@ -59,20 +56,16 @@ class QuizzesController < ApplicationController
 			else
 				session[:user_answers].store(params[:question_id],hash)
 			end
-			@descriptive_value = session[:user_answers]
 			################################################
 			## Checking codition for displaying questions ##
 			################################################
 			if @current >= @total
 				redirect_to finish_quizzes_path(:category_id => @category.id, :question_id => @q.id)
 			else
-			  @question = Question.find(session[:questions][@current])
-			  @answer = @question.answer
+				@question = Question.find(session[:questions][@current])
+				@answer = @question.answer
 			end
 		elsif params[:commit] == "Back"
-			if session[:current] = 0
-				session.delete(:user_answers)
-			end
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] - 1
@@ -83,6 +76,11 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
+			@descriptive_value = session[:user_answers]
+			@descriptive_value.each do |key, value|
+				question = Question.find_by_id(key)
+			  @user_answer = value[key]
+			end
 		else
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
@@ -109,9 +107,9 @@ class QuizzesController < ApplicationController
 		@correct = session[:correct]
 		@total = session[:total]
 		@quiz = Quiz.new(:category_id => params[:category_id],
-			               :user_id => current_user.id,
-			               :correct_answers => find_correct_answers(session[:user_answers])
-			              )
+										 :user_id => current_user.id,
+										 :correct_answers => find_correct_answers(session[:user_answers])
+										)
 		if @quiz.save
 			@quiz.create_descriptive_answers(session[:user_answers])
 			session.delete(:user_answers)
@@ -165,7 +163,7 @@ class QuizzesController < ApplicationController
  #  def previous_step
  #  	self.current_step = steps[steps.index(current_step)-1]
  #  end
-  
+	
  #  def next_step
  #  	self.current_step = steps[steps.index(current_step)+1]
  #  end
