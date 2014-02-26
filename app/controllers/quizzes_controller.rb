@@ -33,6 +33,7 @@ class QuizzesController < ApplicationController
 		if params[:commit] == "Continue" || params[:commit] == "Finish"
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
+			debugger
 			@current = session[:current] + 1
 			session[:current] = @current
 			@total = session[:total]
@@ -65,6 +66,22 @@ class QuizzesController < ApplicationController
 				@question = Question.find(session[:questions][@current])
 				@answer = @question.answer
 			end
+			@descriptive_value = session[:user_answers]
+			@descriptive_value.each do |key, value|
+				question = Question.find_by_id(key)
+				@current = session[:current]
+				if question.option_type == 0
+			    @user_answer = value[key]
+			  elsif question.option_type == 1
+			  	@user_answer = value[key]
+			  	@ds_value1 = @user_answer.first
+			  	@ds_value2 = @user_answer.second
+			  	@ds_value3 = @user_answer.third
+			  	@ds_value4 = @user_answer.fourth
+			  else
+			  	@user_answer = value[key]
+			  end
+			end
 		elsif params[:commit] == "Back"
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
@@ -76,15 +93,31 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
-			# @descriptive_value = session[:user_answers]
-			# @descriptive_value.each do |key, value|
-			# 	question = Question.find_by_id(key)
-			#   @user_answer = value[key]
-			# end
+
+			@descriptive_value = session[:user_answers]
+			@descriptive_value.each do |key, value|
+				question = Question.find_by_id(key)
+				if question.option_type == 0
+			    @user_answer = value[key]
+			  elsif question.option_type == 1
+			  	@user_answer = value[key]
+			  	@ds_value1 = @user_answer.first
+			  	@ds_value2 = @user_answer.second
+			  	@ds_value3 = @user_answer.third
+			  	@ds_value4 = @user_answer.fourth
+			  else
+			  	@user_answer = value[key]
+			  end
+			end
+
 		else
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
+			debugger
+			if session[:current] == 0
+				session.delete(:user_answers)
+			end
 			@current = session[:current]
 			@total = session[:total]
 			if @current >= @total
@@ -115,26 +148,25 @@ class QuizzesController < ApplicationController
 			session.delete(:user_answers)
 			redirect_to finish_exam_quizzes_path
 		end
-		# @score = @correct * 100/@total
 	end
 	def finish_exam
 		
 	end
 
-	def question_back_button
-		@category = Category.find(params[:category_id])
-		@question = @category.questions
-		@current = session[:current] - 1
-		session[:current] = @current
-		@total = session[:total]
-		if @current >= @total
-			redirect_to finish_quizzes_path
-		end
-		@question = Question.find(session[:questions][@current])
-		respond_to do |format|
-			format.js
-		end
-	end
+	# def question_back_button
+	# 	@category = Category.find(params[:category_id])
+	# 	@question = @category.questions
+	# 	@current = session[:current] - 1
+	# 	session[:current] = @current
+	# 	@total = session[:total]
+	# 	if @current >= @total
+	# 		redirect_to finish_quizzes_path
+	# 	end
+	# 	@question = Question.find(session[:questions][@current])
+	# 	respond_to do |format|
+	# 		format.js
+	# 	end
+	# end
 
 	private
 	def find_correct_answers(user_answers)
@@ -152,19 +184,4 @@ class QuizzesController < ApplicationController
 		end
 		return count
 	end
-
-	# def steps
- #    @total
- #  end
- #  def current_step
- #    @current || steps.first	
- #  end
-
- #  def previous_step
- #  	self.current_step = steps[steps.index(current_step)-1]
- #  end
-	
- #  def next_step
- #  	self.current_step = steps[steps.index(current_step)+1]
- #  end
 end
