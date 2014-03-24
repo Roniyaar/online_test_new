@@ -11,5 +11,6 @@
  *= require_self
  *= require bootstrap-wysihtml5
  *= require font-awesome
+ *= require social-share-button
  *= require_tree .
  */

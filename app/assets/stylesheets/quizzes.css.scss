@@ -18,10 +18,79 @@
 	font-size: 20px;
 	padding: 10px;
 	span:first-child {
-		color: #ccc;
+		color: #5E6469;
 	}
 	#timer {
 		font-size: 20px;
 		font-weight: bold;
 	}
+}
+
+/*  User Setting  */
+.myaccount {
+  position: relative;
+  .login {
+  	line-height: 32px;
+    padding: 10px 0;
+    > a {
+    	background: url("https://dx87hk8eoofvk.cloudfront.net/images/sprites/base.png") no-repeat scroll -314px -43px rgba(0, 0, 0, 0);
+      padding: 17px 17px 17px 20px;
+    }
+  }
+}
+.myaccount .login {
+  line-height: 32px;
+  padding: 10px 0;
+}
+.myaccount .login a {
+    background: url("https://dx87hk8eoofvk.cloudfront.net/images/sprites/base.png") no-repeat scroll -314px -43px rgba(0, 0, 0, 0);
+    padding: 17px 17px 17px 20px;
+}
+.myaccount .login a:first-child {
+    background-image: none;
+}
+.myaccount .login a:hover {
+    box-shadow: 10px 10px 52px #BBBBBB inset;
+    transition-duration: 90ms;
+    transition-property: box-shadow;
+}
+.myaccount .logout {
+    padding: 10px 0;
+}
+.myaccount .logout:hover {
+    box-shadow: 10px 10px 52px #BBBBBB inset;
+    transition-duration: 90ms;
+    transition-property: box-shadow;
+}
+.myaccount .logout:hover #user-menu {
+    display: block;
+}
+.myaccount a {
+    padding: 0 10px;
+}
+.myaccount #login-register-btn {
+    position: relative;
+    top: 6px;
+}
+.myaccount .user-name {
+    color: #2E2E2E;
+    font-size: 15px;
+    overflow: hidden;
+    padding: 5px 0 8px 5px;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+}
+.myaccount .caret {
+    margin: 15px 10px 10px;
+}
+.myaccount .facebook-image img {
+    height: 30px;
+    padding-right: 5px;
+}
+.myaccount .facebook-image .user-icon {
+    background: url("https://dx87hk8eoofvk.cloudfront.net/images/sprites/base.png") no-repeat scroll -158px -12px rgba(0, 0, 0, 0);
+    height: 32px;
+    width: 35px;
 }

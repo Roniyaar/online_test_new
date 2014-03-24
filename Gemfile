@@ -34,6 +34,8 @@ gem 'bootstrap-wysihtml5-rails'
 #gem 'will_paginate', '~> 3.0'
 #gem 'phony_rails'
 
+gem 'social-share-button'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

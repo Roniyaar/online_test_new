@@ -26,3 +26,26 @@
         = link_to 'Login', new_user_session_path
       %li
         = link_to 'Sign up', new_user_registration_path
+  .user-view.pull-right
+    .myaccount.pull-left
+      .logout
+        .pull-left.user-name
+          Yogendra Vishwakarma
+        .caret.pull-left
+        .facebook-image.pull-right
+          .user-icon
+        .clear
+        #user-menu.hidden
+          .arrow-up
+          .section-b
+            %ul
+              %li
+                %a{href: "/yourorders"} Your Orders
+              %li
+                %a{href: "/paytmcash"} Paytm Cash
+              %li
+                %a{href: "/settings"} Settings
+              %li
+                %a{href: "/help"} Help & Support
+              %li
+                %a{href: "/logout"} Sign Out

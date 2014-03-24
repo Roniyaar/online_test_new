@@ -16,4 +16,5 @@
 //= require questions.js
 //= require jquery_nested_form
 //= require ckeditor-jquery
+//= require social-share-button
 //= require_tree .

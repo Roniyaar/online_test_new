@@ -16,7 +16,7 @@ class QuizzesController < ApplicationController
 	# 	end
 	# end
 	def start
-		@quiz = Quiz.new
+		# @quiz = Quiz.new
 		session.delete(:user_answers)
 		@category = Category.find(params[:category_id])
 		@question = @category.questions
@@ -25,15 +25,17 @@ class QuizzesController < ApplicationController
 		session[:questions] = all_question.sort_by{rand}[0..(total-1)]
 		session[:total] = total
 		session[:current] = 0
-		session[:correct] = 0
+		# session[:correct] = 0
 		redirect_to question_quizzes_path(:category_id => @category.id)
 	end
 
 	def question
 		if params[:commit] == "Continue" || params[:commit] == "Finish"
+			if session[:current] == 0
+				session.delete(:user_answers)
+			end
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
-			debugger
 			@current = session[:current] + 1
 			session[:current] = @current
 			@total = session[:total]
@@ -70,9 +72,9 @@ class QuizzesController < ApplicationController
 			@descriptive_value.each do |key, value|
 				question = Question.find_by_id(key)
 				@current = session[:current]
-				if question.option_type == 0
+				if question.option_type == 0 && params[:commit] == "Continue"
 			    @user_answer = value[key]
-			  elsif question.option_type == 1
+			  elsif question.option_type == 1 && params[:commit] == "Continue" || params[:commit] == "Finish"
 			  	@user_answer = value[key]
 			  	@ds_value1 = @user_answer.first
 			  	@ds_value2 = @user_answer.second
@@ -86,6 +88,9 @@ class QuizzesController < ApplicationController
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
 			@current = session[:current] - 1
+			if @current == 0
+				session.delete(:user_answers)
+			end
 			session[:current] = @current
 			@total = session[:total]
 			if @current >= @total
@@ -93,28 +98,27 @@ class QuizzesController < ApplicationController
 			end
 			@question = Question.find(session[:questions][@current])
 			@answer = @question.answer
-
-			@descriptive_value = session[:user_answers]
-			@descriptive_value.each do |key, value|
-				question = Question.find_by_id(key)
-				if question.option_type == 0
-			    @user_answer = value[key]
-			  elsif question.option_type == 1
-			  	@user_answer = value[key]
-			  	@ds_value1 = @user_answer.first
-			  	@ds_value2 = @user_answer.second
-			  	@ds_value3 = @user_answer.third
-			  	@ds_value4 = @user_answer.fourth
-			  else
-			  	@user_answer = value[key]
-			  end
+			unless session[:user_answers].nil?
+				@descriptive_value = session[:user_answers]
+				@descriptive_value.each do |key, value|
+					question = Question.find_by_id(key)
+					if question.option_type == 0
+				    @user_answer = value[key]
+				  elsif question.option_type == 1
+				  	@user_answer = value[key]
+				  	@ds_value1 = @user_answer.first
+				  	@ds_value2 = @user_answer.second
+				  	@ds_value3 = @user_answer.third
+				  	@ds_value4 = @user_answer.fourth
+				  else
+				  	@user_answer = value[key]
+				  end
+				end
 			end
-
 		else
 			@quiz = Quiz.new
 			@category = Category.find(params[:category_id])
 			@question = @category.questions
-			debugger
 			if session[:current] == 0
 				session.delete(:user_answers)
 			end
